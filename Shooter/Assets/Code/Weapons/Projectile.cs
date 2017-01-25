@@ -16,10 +16,13 @@ namespace TAMKShooter
 
 		[SerializeField] private float _shootingForce;
 		[SerializeField] private int _damage;
+		[SerializeField] private ProjectileType _projectileType;
 
 		#endregion Unity fields
 
 		private Rigidbody _rigidbody;
+
+		public ProjectileType Type { get { return _projectileType; } }
 
 		#region Unity messages
 
