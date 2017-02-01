@@ -40,11 +40,6 @@ namespace TAMKShooter.Systems
 			_pool.Add ( obj );
 			_isActive.Add ( activate );
 
-			var index = _pool.IndexOf ( obj );
-
-			Debug.Log ( string.Format ( "{0} added to pool. Is active: {1}",
-				obj, _isActive[index] ) );
-
 			return obj;
 		}
 
