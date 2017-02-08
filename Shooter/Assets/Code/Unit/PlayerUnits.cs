@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 using TAMKShooter.Data;
+using TAMKShooter.Systems;
 
 namespace TAMKShooter
 {
@@ -17,8 +15,26 @@ namespace TAMKShooter
 			foreach (PlayerData playerData in players)
 			{
 				// Get prefab by UnitType
-				// Initialize unit
-				// Add player to dictionary
+				PlayerUnit unitPrefab =
+					Global.Instance.Prefabs.
+					GetPlayerUnitPrefab ( playerData.UnitType );
+
+				if(unitPrefab != null)
+				{
+					// Initialize unit
+					PlayerUnit unit = Instantiate ( unitPrefab, transform );
+					unit.transform.position = Vector3.zero;
+					unit.transform.rotation = Quaternion.identity;
+					unit.Init ( playerData );
+
+					// Add player to dictionary
+					_players.Add ( playerData.Id, unit );
+				}
+				else
+				{
+					Debug.LogError ( "Unit prefab with type " + playerData.UnitType +
+						" cound not be found!" );
+				}
 			}
 		}
 

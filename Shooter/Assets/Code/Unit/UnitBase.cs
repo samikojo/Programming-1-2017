@@ -31,7 +31,6 @@ namespace TAMKShooter
 		#endregion
 
 		#region Abstracts
-		protected abstract void Die ();
 		public abstract int ProjectileLayer { get; }
 		#endregion
 
@@ -40,6 +39,21 @@ namespace TAMKShooter
 			Health = gameObject.GetOrAddComponent<Health> ();
 			Mover = gameObject.GetOrAddComponent<Mover> ();
 			Weapons = GetComponentInChildren<WeaponController> ();
+
+			Health.HealthChanged += HealthChanged;
+		}
+
+		private void HealthChanged ( object sender, HealthChangedEventArgs args )
+		{
+			if(args.CurrentHealth <= 0)
+			{
+				Die ();
+			}
+		}
+
+		protected virtual void Die ()
+		{
+			Health.HealthChanged -= HealthChanged;
 		}
 	}
 }

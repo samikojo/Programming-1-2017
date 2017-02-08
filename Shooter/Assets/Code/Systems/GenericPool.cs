@@ -49,8 +49,6 @@ namespace TAMKShooter.Systems
 		/// <returns>If pool has objects or it can grow, returns an object. Otherwise returns null.</returns>
 		public T GetPooledObject()
 		{
-			Debug.Log ( "Get pooled object" );
-
 			T result = null;
 			for(int i = 0; i < _isActive.Count; ++i )
 			{

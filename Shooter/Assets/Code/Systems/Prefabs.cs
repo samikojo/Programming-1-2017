@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Linq;
 using System.Collections.Generic;
 using ProjectileType = TAMKShooter.Projectile.ProjectileType;
 
@@ -6,21 +7,37 @@ namespace TAMKShooter.Systems
 {
 	public class Prefabs : MonoBehaviour
 	{
-		[SerializeField]
-		private List<Projectile> _projectilePrefabs
-			= new List<Projectile> ();
+		[SerializeField] private PlayerUnit[] _playerUnitPrefabs;
 
-		public Projectile GetProjectilePrefabByType(ProjectileType projectileType)
+		public PlayerUnit GetPlayerUnitPrefab( PlayerUnit.UnitType type )
 		{
-			foreach (Projectile projectile in _projectilePrefabs)
+			PlayerUnit result = null;
+			
+			// For loop
+			for(int i = 0; i < _playerUnitPrefabs.Length; ++i )
 			{
-				if(projectile.Type == projectileType)
+				if(_playerUnitPrefabs[i].Type == type)
 				{
-					return projectile;
+					result = _playerUnitPrefabs[i];
+					break;
 				}
 			}
 
-			return null;
+			// Foreach loop
+			//foreach(PlayerUnit playerUnit in _playerUnitPrefabs)
+			//{
+			//	if(playerUnit.Type == type)
+			//	{
+			//		result = playerUnit;
+			//		break;
+			//	}
+			//}
+
+			return result;
+
+			// Linq version
+			//return _playerUnitPrefabs.
+			//	FirstOrDefault ( prefab => prefab.Type == type );
 		}
 	}
 }
