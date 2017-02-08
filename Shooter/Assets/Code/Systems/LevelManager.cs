@@ -10,6 +10,7 @@ namespace TAMKShooter.Systems
 		// Add reference to InputManager here.
 		public PlayerUnits PlayerUnits { get; private set; }
 		public EnemyUnits EnemyUnits { get; private set; }
+        public InputManager InputManager { get; private set; }
 
 		protected void Awake()
 		{
@@ -20,18 +21,26 @@ namespace TAMKShooter.Systems
 		{
 			PlayerUnits = GetComponentInChildren<PlayerUnits> ();
 			EnemyUnits = GetComponentInChildren<EnemyUnits> ();
+            InputManager = GetComponentInChildren<InputManager>();
 
 			EnemyUnits.Init ();
 
-			// TODO: Get player data from GameManager (new data or saved data)
-			PlayerData playerData = new PlayerData ()
-			{
-				Id = PlayerData.PlayerId.Player1,
-				UnitType = PlayerUnit.UnitType.Heavy,
-				Lives = 3
-			};
+            // TODO: Get player data from GameManager (new data or saved data)
+            PlayerData[] playerData = new PlayerData[4];
 
-			PlayerUnits.Init ( playerData );
+            for (int i = 0; i < playerData.Length; i++)
+            {
+                playerData[i] = new PlayerData()
+                {
+                    Id = (PlayerData.PlayerId)i + 1,
+                    UnitType = (PlayerUnit.UnitType)Random.Range(1,4),
+                    ControllerType = (PlayerData.PlayerControllerType)Random.Range(1, 3),
+                    //ControllerType = PlayerData.PlayerControllerType.Keyboard,
+                    Lives = 3
+                };
+            }
+
+            PlayerUnits.Init ( InputManager, playerData);
 		}
 	}
 }
