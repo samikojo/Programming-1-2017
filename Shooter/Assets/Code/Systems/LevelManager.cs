@@ -24,14 +24,34 @@ namespace TAMKShooter.Systems
 			EnemyUnits.Init ();
 
 			// TODO: Get player data from GameManager (new data or saved data)
-			PlayerData playerData = new PlayerData ()
+			var playerData = new PlayerData ()
 			{
 				Id = PlayerData.PlayerId.Player1,
 				UnitType = PlayerUnit.UnitType.Heavy,
-				Lives = 3
+				Lives = 3,
+			    ControllerType = InputManager.ControllerType.Keyboard,
+			    FireButton = "space"
 			};
 
-			PlayerUnits.Init ( playerData );
+		    var playerData2 = new PlayerData ()
+		    {
+		        Id = PlayerData.PlayerId.Player2,
+		        UnitType = PlayerUnit.UnitType.Balanced,
+		        Lives = 3,
+		        ControllerType = InputManager.ControllerType.Keyboard,
+		        FireButton = "delete"
+		    };
+
+		    var playerData3 = new PlayerData ()
+		    {
+		        Id = PlayerData.PlayerId.Player3,
+		        UnitType = PlayerUnit.UnitType.Fast,
+		        Lives = 3,
+		        ControllerType = InputManager.ControllerType.Joypad,
+		        FireButton = "0"
+		    };
+
+		    PlayerUnits.Init ( playerData, playerData2, playerData3 );
 		}
 	}
 }
