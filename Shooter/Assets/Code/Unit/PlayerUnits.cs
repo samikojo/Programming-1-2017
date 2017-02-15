@@ -10,7 +10,7 @@ namespace TAMKShooter
 		private Dictionary<PlayerData.PlayerId, PlayerUnit> _players =
 			new Dictionary<PlayerData.PlayerId, PlayerUnit> ();
 
-		public void Init(params PlayerData[] players)
+		public void Init(InputManager inputManager, params PlayerData[] players)
 		{
 			foreach (PlayerData playerData in players)
 			{
@@ -25,7 +25,7 @@ namespace TAMKShooter
 					PlayerUnit unit = Instantiate ( unitPrefab, transform );
 					unit.transform.position = Vector3.zero;
 					unit.transform.rotation = Quaternion.identity;
-					unit.Init ( playerData );
+					unit.Init ( playerData, inputManager );
 
 					// Add player to dictionary
 					_players.Add ( playerData.Id, unit );

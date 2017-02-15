@@ -14,9 +14,16 @@ namespace TAMKShooter.Data
 			Player4 = 4
 		}
 
+        public enum PlayerControllerType
+        {
+            None = 0,
+            Keyboard = 1,
+            Controller = 2
+        }
+
 		public PlayerId Id;
 		public PlayerUnit.UnitType UnitType;
-		// TODO: Controller type
+        public PlayerControllerType ControllerType;
 		public int Lives;
 	}
 }

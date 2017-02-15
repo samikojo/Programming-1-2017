@@ -16,8 +16,9 @@ namespace TAMKShooter
 		}
 
 		[SerializeField] private UnitType _type;
+        private InputManager _inputManager;
 
-		public UnitType Type { get { return _type; } }
+        public UnitType Type { get { return _type; } }
 		public PlayerData Data { get; private set; }
 
 		public override int ProjectileLayer
@@ -28,9 +29,11 @@ namespace TAMKShooter
 			}
 		}
 
-		public void Init( PlayerData playerData )
+		public void Init( PlayerData playerData, InputManager inputManager )
 		{
 			Data = playerData;
+            _inputManager = inputManager;
+            _inputManager.AddPlayer(this, Data.ControllerType);
 		}
 
 		protected override void Die ()
@@ -47,14 +50,10 @@ namespace TAMKShooter
 
 		protected void Update()
 		{
-			float horizontal = Input.GetAxis ( "Horizontal" );
-			float vertical = Input.GetAxis ( "Vertical" );
 
-			Vector3 input = new Vector3 ( horizontal, 0, vertical );
+			Mover.MoveToDirection ( _inputManager.GetInputAxes(this) );
 
-			Mover.MoveToDirection ( input );
-
-			bool shoot = Input.GetButton ( "Shoot" );
+            bool shoot = _inputManager.GetShoot(this);
 			if(shoot)
 			{
 				Weapons.Shoot ( ProjectileLayer );
