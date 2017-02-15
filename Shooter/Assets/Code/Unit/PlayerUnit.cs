@@ -15,7 +15,7 @@ namespace TAMKShooter
 			Heavy = 3
 		}
 
-		[SerializeField] private UnitType _type;
+        [SerializeField] private UnitType _type;
 
 		public UnitType Type { get { return _type; } }
 		public PlayerData Data { get; private set; }
@@ -28,7 +28,7 @@ namespace TAMKShooter
 			}
 		}
 
-		public void Init( PlayerData playerData )
+		public void Init( PlayerData playerData)
 		{
 			Data = playerData;
 		}
@@ -45,6 +45,7 @@ namespace TAMKShooter
 			base.Die ();
 		}
 
+        /*
 		protected void Update()
 		{
 			float horizontal = Input.GetAxis ( "Horizontal" );
@@ -60,5 +61,6 @@ namespace TAMKShooter
 				Weapons.Shoot ( ProjectileLayer );
 			}
 		}
+        */
 	}
 }

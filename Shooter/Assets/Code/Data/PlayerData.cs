@@ -1,4 +1,5 @@
 using System;
+using TAMKShooter;
 
 namespace TAMKShooter.Data
 {
@@ -14,8 +15,14 @@ namespace TAMKShooter.Data
 			Player4 = 4
 		}
 
-		public PlayerId Id;
+        public enum ControllerCodes
+        {
+            None, K1, K2, C1, C2
+        }
+
+        public PlayerId Id;
 		public PlayerUnit.UnitType UnitType;
+        public ControllerCodes ControllerCode;
 		// TODO: Controller type
 		public int Lives;
 	}
