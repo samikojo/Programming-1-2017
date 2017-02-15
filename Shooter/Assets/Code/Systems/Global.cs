@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TAMKShooter.Utility;
 
 namespace TAMKShooter.Systems
 {
@@ -15,8 +16,7 @@ namespace TAMKShooter.Systems
 			{
 				if(_instance == null)
 				{
-					GameObject globalObj = new GameObject ( typeof ( Global ).Name );
-					_instance = globalObj.AddComponent<Global> ();
+					_instance = Instantiate( Resources.Load<Global> ( "Global" ) );
 				}
 
 				return _instance;
@@ -28,6 +28,7 @@ namespace TAMKShooter.Systems
 
 		public Prefabs Prefabs { get { return _prefabs; } }
 		public Pools Pools { get { return _pools; } }
+		public GameManager GameManager { get; private set; }
 
 		protected void Awake()
 		{
@@ -64,6 +65,9 @@ namespace TAMKShooter.Systems
 			{
 				_pools = GetComponentInChildren<Pools> ();
 			}
+
+			GameManager = gameObject.GetOrAddComponent<GameManager> ();
+			GameManager.Init ();
 		}
 	}
 }

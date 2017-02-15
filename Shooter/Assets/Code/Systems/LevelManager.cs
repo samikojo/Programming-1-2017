@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TAMKShooter.Data;
+using System;
 
 namespace TAMKShooter.Systems
 {
@@ -10,6 +11,11 @@ namespace TAMKShooter.Systems
 		// Add reference to InputManager here.
 		public PlayerUnits PlayerUnits { get; private set; }
 		public EnemyUnits EnemyUnits { get; private set; }
+
+		public override GameStateType StateType
+		{
+			get { return GameStateType.InGameState; }
+		}
 
 		protected void Awake()
 		{

@@ -33,7 +33,7 @@ namespace TAMKShooter
 				else
 				{
 					Debug.LogError ( "Unit prefab with type " + playerData.UnitType +
-						" cound not be found!" );
+						" could not be found!" );
 				}
 			}
 		}

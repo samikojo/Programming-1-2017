@@ -36,6 +36,10 @@ namespace TAMKShooter
 		protected override void Die ()
 		{
 			// TODO: Handle dying properly!
+			// Instantiate explosion effect
+			// Play sound
+			// Decrease lives
+			// Respawn player
 			gameObject.SetActive ( false );
 
 			base.Die ();
