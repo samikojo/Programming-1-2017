@@ -2,11 +2,14 @@ using System;
 using TAMKShooter.Data;
 using UnityEngine;
 using TAMKShooter.Configs;
+using TAMKShooter.Systems;
 
 namespace TAMKShooter
 {
 	public class PlayerUnit : UnitBase
 	{
+	    public InputManager InputSource;
+
 		public enum UnitType
 		{
 			None = 0,
@@ -47,15 +50,10 @@ namespace TAMKShooter
 
 		protected void Update()
 		{
-			float horizontal = Input.GetAxis ( "Horizontal" );
-			float vertical = Input.GetAxis ( "Vertical" );
+		    var inputAxis = InputSource.PollStickAxis();
+			Mover.MoveToDirection ( inputAxis );
 
-			Vector3 input = new Vector3 ( horizontal, 0, vertical );
-
-			Mover.MoveToDirection ( input );
-
-			bool shoot = Input.GetButton ( "Shoot" );
-			if(shoot)
+			if(InputSource.PollFireButton())
 			{
 				Weapons.Shoot ( ProjectileLayer );
 			}
