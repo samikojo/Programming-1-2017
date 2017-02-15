@@ -29,11 +29,12 @@ namespace TAMKShooter.Systems
 
 			EnemyUnits.Init ();
 
-			// TODO: Get player data from GameManager (new data or saved data)
-			PlayerData playerData = new PlayerData ()
-			{
-				Id = PlayerData.PlayerId.Player1,
-				UnitType = PlayerUnit.UnitType.Heavy,
+            // TODO: Get player data from GameManager (new data or saved data)
+            PlayerData playerData = new PlayerData()
+            {
+                Id = PlayerData.PlayerId.Player1,
+                UnitType = PlayerUnit.UnitType.Heavy,
+                ControllerCode = PlayerData.ControllerCodes.K1,
 				Lives = 3
 			};
 
