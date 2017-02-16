@@ -7,7 +7,7 @@ namespace TAMKShooter
 {
 	public class PlayerUnits : MonoBehaviour
 	{
-		private Dictionary<PlayerData.PlayerId, PlayerUnit> _players =
+		public Dictionary<PlayerData.PlayerId, PlayerUnit> Players =
 			new Dictionary<PlayerData.PlayerId, PlayerUnit> ();
 
 		public void Init(params PlayerData[] players)
@@ -28,7 +28,8 @@ namespace TAMKShooter
 					unit.Init ( playerData );
 
 					// Add player to dictionary
-					_players.Add ( playerData.Id, unit );
+					Players.Add ( playerData.Id, unit );
+                    Debug.Log("INIT");
 				}
 				else
 				{
