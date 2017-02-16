@@ -47,18 +47,18 @@ namespace TAMKShooter
 
 		protected void Update()
 		{
-			float horizontal = Input.GetAxis ( "Horizontal" );
-			float vertical = Input.GetAxis ( "Vertical" );
+			/*float horizontal = Input.GetAxis ( "P1 Horizontal" );
+			float vertical = Input.GetAxis ( "P1 Vertical" );
 
 			Vector3 input = new Vector3 ( horizontal, 0, vertical );
 
 			Mover.MoveToDirection ( input );
 
-			bool shoot = Input.GetButton ( "Shoot" );
+			bool shoot = Input.GetButton ( "P1 Shoot" );
 			if(shoot)
 			{
 				Weapons.Shoot ( ProjectileLayer );
-			}
+			}*/
 		}
 	}
 }
