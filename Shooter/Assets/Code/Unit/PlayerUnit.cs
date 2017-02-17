@@ -19,6 +19,7 @@ namespace TAMKShooter
 
 		public UnitType Type { get { return _type; } }
 		public PlayerData Data { get; private set; }
+        public InputManager inputManager;
 
 		public override int ProjectileLayer
 		{
@@ -27,6 +28,10 @@ namespace TAMKShooter
 				return LayerMask.NameToLayer ( Config.PlayerProjectileLayerName );
 			}
 		}
+
+        void Start() {
+            inputManager = GetComponent<InputManager>();
+        }
 
 		public void Init( PlayerData playerData )
 		{
@@ -47,18 +52,7 @@ namespace TAMKShooter
 
 		protected void Update()
 		{
-			float horizontal = Input.GetAxis ( "Horizontal" );
-			float vertical = Input.GetAxis ( "Vertical" );
-
-			Vector3 input = new Vector3 ( horizontal, 0, vertical );
-
-			Mover.MoveToDirection ( input );
-
-			bool shoot = Input.GetButton ( "Shoot" );
-			if(shoot)
-			{
-				Weapons.Shoot ( ProjectileLayer );
-			}
+            inputManager.MoveAndShoot((Mover)Mover, ProjectileLayer, Weapons);
 		}
 	}
 }
