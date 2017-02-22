@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TAMKShooter.Data;
 using TAMKShooter.Systems;
+using System;
 
 namespace TAMKShooter
 {
@@ -38,8 +39,23 @@ namespace TAMKShooter
 			}
 		}
 
-		// Update player movement
+		public void UpdateMovement ( InputManager.ControllerType controller, 
+			Vector3 input, bool shoot )
+		{
+			PlayerUnit playerUnit = null;
+			foreach (var player in _players)
+			{
+				if(player.Value.Data.Controller == controller)
+				{
+					playerUnit = player.Value;
+				}
+			}
 
+			if(playerUnit != null)
+			{
+				playerUnit.HandleInput ( input, shoot );
+			}
+		}
 
 	}
 }

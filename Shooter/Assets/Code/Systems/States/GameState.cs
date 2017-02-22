@@ -32,8 +32,17 @@ namespace TAMKShooter.Systems.States
 				GameStateType.GameOverState );
 			AddTransition ( GameStateTransitionType.InGameToMenu,
 				GameStateType.MenuState );
+			AddTransition ( GameStateTransitionType.InGameToInGame,
+				GameStateType.InGameState );
 		}
 
 		public GameState() : this ( 1 ) { }
+
+		public void LevelCompleted()
+		{
+			CurrentLevelIndex++;
+			Global.Instance.GameManager.PerformTransition ( 
+				GameStateTransitionType.InGameToInGame );
+		}
 	}
 }

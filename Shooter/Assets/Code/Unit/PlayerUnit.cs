@@ -45,19 +45,12 @@ namespace TAMKShooter
 			base.Die ();
 		}
 
-		protected void Update()
+		public void HandleInput ( Vector3 input, bool shoot )
 		{
-			float horizontal = Input.GetAxis ( "Horizontal" );
-			float vertical = Input.GetAxis ( "Vertical" );
-
-			Vector3 input = new Vector3 ( horizontal, 0, vertical );
-
 			Mover.MoveToDirection ( input );
-
-			bool shoot = Input.GetButton ( "Shoot" );
 			if(shoot)
 			{
-				Weapons.Shoot ( ProjectileLayer );
+				Weapons.Shoot (ProjectileLayer);
 			}
 		}
 	}

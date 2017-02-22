@@ -1,4 +1,5 @@
 using System;
+using TAMKShooter.Systems;
 
 namespace TAMKShooter.Data
 {
@@ -16,7 +17,7 @@ namespace TAMKShooter.Data
 
 		public PlayerId Id;
 		public PlayerUnit.UnitType UnitType;
-		// TODO: Controller type
+		public InputManager.ControllerType Controller;
 		public int Lives;
 	}
 }
