@@ -9,12 +9,13 @@ namespace TAMKShooter.Systems
 	public class Global : MonoBehaviour
 	{
 		private static Global _instance;
+		private static bool _isAppClosing = false;
 
 		public static Global Instance
 		{
 			get
 			{
-				if(_instance == null)
+				if(_instance == null && !_isAppClosing)
 				{
 					_instance = Instantiate( Resources.Load<Global> ( "Global" ) );
 				}
@@ -68,6 +69,11 @@ namespace TAMKShooter.Systems
 
 			GameManager = gameObject.GetOrAddComponent<GameManager> ();
 			GameManager.Init ();
+		}
+
+		private void OnApplicationQuit()
+		{
+			_isAppClosing = true;
 		}
 	}
 }
