@@ -34,6 +34,17 @@ namespace TAMKShooter.Systems
 			{
 				ReadInput ( controller );
 			}
+
+			PollSave();
+		}
+
+		private void PollSave()
+		{
+			if ( Input.GetKeyDown( KeyCode.F2 ) )
+			{
+				Global.Instance.SaveManager.Save( Global.Instance.CurrentGameData,
+					DateTime.Now.ToString("yyyy-MM-dd_hh-mm-ss"));
+			}
 		}
 
 		private void ReadInput(ControllerType controller)

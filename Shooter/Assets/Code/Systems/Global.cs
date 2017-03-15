@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TAMKShooter.Utility;
+using TAMKShooter.Data;
+using TAMKShooter.Systems.SaveLoad;
 
 namespace TAMKShooter.Systems
 {
@@ -30,6 +32,8 @@ namespace TAMKShooter.Systems
 		public Prefabs Prefabs { get { return _prefabs; } }
 		public Pools Pools { get { return _pools; } }
 		public GameManager GameManager { get; private set; }
+		public GameData CurrentGameData { get; set; }
+		public SaveManager SaveManager { get; private set; }
 
 		protected void Awake()
 		{
@@ -66,6 +70,11 @@ namespace TAMKShooter.Systems
 			{
 				_pools = GetComponentInChildren<Pools> ();
 			}
+
+			//SaveManager =
+			//	new SaveManager( new BinaryFormatterSaveLoad< GameData >() );
+			SaveManager =
+				new SaveManager( new JSONSaveLoad< GameData >() );
 
 			GameManager = gameObject.GetOrAddComponent<GameManager> ();
 			GameManager.Init ();

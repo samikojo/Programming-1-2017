@@ -12,6 +12,7 @@ namespace TAMKShooter.Systems
 	public class LevelManager : SceneManager
 	{
 		private ConditionBase[] _conditions;
+		private EnemySpawner[] _enemySpawners;
 
 		// Add reference to InputManager here.
 		public PlayerUnits PlayerUnits { get; private set; }
@@ -32,35 +33,15 @@ namespace TAMKShooter.Systems
 		{
 			PlayerUnits = GetComponentInChildren<PlayerUnits> ();
 			EnemyUnits = GetComponentInChildren<EnemyUnits> ();
-
 			EnemyUnits.Init ();
 
-			// TODO: Get player data from GameManager (new data or saved data)
-			PlayerData playerData1 = new PlayerData ()
+			_enemySpawners = GetComponentsInChildren< EnemySpawner >();
+			foreach ( var enemySpawner in _enemySpawners )
 			{
-				Id = PlayerData.PlayerId.Player1,
-				UnitType = PlayerUnit.UnitType.Heavy,
-				Lives = 3,
-				Controller = InputManager.ControllerType.KeyboardWasd
-			};
+				enemySpawner.Init( EnemyUnits );
+			}
 
-			PlayerData playerData2 = new PlayerData ()
-			{
-				Id = PlayerData.PlayerId.Player2,
-				UnitType = PlayerUnit.UnitType.Balanced,
-				Lives = 3,
-				Controller = InputManager.ControllerType.KeyboardArrow
-			};
-
-			PlayerData playerData3 = new PlayerData ()
-			{
-				Id = PlayerData.PlayerId.Player3,
-				UnitType = PlayerUnit.UnitType.Fast,
-				Lives = 3,
-				Controller = InputManager.ControllerType.Gamepad1
-			};
-
-			PlayerUnits.Init ( playerData1, playerData2, playerData3 );
+			PlayerUnits.Init ( Global.Instance.CurrentGameData.PlayerDatas.ToArray() );
 
 			InputManager = gameObject.GetOrAddComponent<InputManager> ();
 			InputManager.Init ( this, InputManager.ControllerType.KeyboardWasd,

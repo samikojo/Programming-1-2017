@@ -1,14 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using TAMKShooter.Configs;
+using TAMKShooter.Utility;
+using TAMKShooter.WaypointSystem;
 using UnityEngine;
 
 namespace TAMKShooter
 {
 	public class EnemyUnit : UnitBase
 	{
+		private IPathUser _pathUser;
+
 		public EnemyUnits EnemyUnits { get; private set; }
 
 		public override int ProjectileLayer
@@ -19,9 +19,14 @@ namespace TAMKShooter
 			}
 		}
 
-		public void Init(EnemyUnits enemyUnits)
+		public void Init(EnemyUnits enemyUnits, Path path)
 		{
+			InitRequiredComponents();
+
 			EnemyUnits = enemyUnits;
+
+			_pathUser = gameObject.GetOrAddComponent< PathUser >();
+			_pathUser.Init( Mover, path );
 		}
 
 		protected override void Die ()
