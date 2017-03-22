@@ -8,11 +8,15 @@ namespace TAMKShooter
 {
 	public class PlayerUnits : MonoBehaviour
 	{
+	    private SpawnPoints _spawns;
+
 		private Dictionary<PlayerData.PlayerId, PlayerUnit> _players =
 			new Dictionary<PlayerData.PlayerId, PlayerUnit> ();
 
 		public void Init(params PlayerData[] players)
 		{
+		    _spawns = FindObjectOfType<SpawnPoints>();
+
 			foreach (PlayerData playerData in players)
 			{
 				// Get prefab by UnitType
@@ -24,7 +28,9 @@ namespace TAMKShooter
 				{
 					// Initialize unit
 					PlayerUnit unit = Instantiate ( unitPrefab, transform );
-					unit.transform.position = Vector3.zero;
+
+				    if (_spawns != null) unit.SpawnPoint = _spawns.GetSpawnPoint((int)playerData.Id - 1);
+				    unit.transform.position = unit.SpawnPoint;
 					unit.transform.rotation = Quaternion.identity;
 					unit.Init ( playerData );
 

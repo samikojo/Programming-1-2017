@@ -7,6 +7,8 @@ namespace TAMKShooter
 {
 	public class PlayerUnit : UnitBase
 	{
+	    public Vector3 SpawnPoint = Vector3.zero;
+
 		public enum UnitType
 		{
 			None = 0,
@@ -39,11 +41,16 @@ namespace TAMKShooter
 			// TODO: Handle dying properly!
 			// Instantiate explosion effect
 			// Play sound
-			// Decrease lives
-			// Respawn player
-			gameObject.SetActive ( false );
 
-			base.Die ();
+		    if (--Data.Lives > 0)
+		    {
+		        transform.position = SpawnPoint;
+		    }
+		    else
+		    {
+		        gameObject.SetActive(false);
+		        base.Die();
+		    }
 		}
 
 		public void HandleInput ( Vector3 input, bool shoot )
@@ -54,5 +61,13 @@ namespace TAMKShooter
 				Weapons.Shoot (ProjectileLayer);
 			}
 		}
+
+	    private void OnTriggerEnter(Collider other)
+	    {
+	        var health = other.gameObject.GetComponent<Health>();
+	        if (health != null) health.TakeDamage(health.CurrentHealth);
+
+	        Die();
+	    }
 	}
 }
