@@ -41,6 +41,33 @@ namespace TAMKShooter.Systems
 				enemySpawner.Init( EnemyUnits );
 			}
 
+#if UNITY_EDITOR
+			if ( Global.Instance.CurrentGameData == null )
+			{
+				Global.Instance.CurrentGameData = new GameData()
+				{
+					Level = 1,
+					PlayerDatas = new List< PlayerData >()
+					{
+						new PlayerData()
+						{
+							Controller = InputManager.ControllerType.KeyboardArrow,
+							Id = PlayerData.PlayerId.Player1,
+							Lives = 3,
+							UnitType = PlayerUnit.UnitType.Balanced
+						},
+						new PlayerData()
+						{
+							Controller = InputManager.ControllerType.KeyboardWasd,
+							Id = PlayerData.PlayerId.Player2,
+							Lives = 3,
+							UnitType = PlayerUnit.UnitType.Heavy
+						}
+					}
+				};
+			}
+#endif
+
 			PlayerUnits.Init ( Global.Instance.CurrentGameData.PlayerDatas.ToArray() );
 
 			InputManager = gameObject.GetOrAddComponent<InputManager> ();
