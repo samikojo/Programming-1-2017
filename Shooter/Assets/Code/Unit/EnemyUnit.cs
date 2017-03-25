@@ -37,5 +37,13 @@ namespace TAMKShooter
 
 			base.Die ();
 		}
+
+	    void OnTriggerEnter(Collider other)
+	    {
+	        if (other.tag == "Player")
+	        {
+                gameObject.SetActive(false);
+	        }
+	    }
 	}
 }
