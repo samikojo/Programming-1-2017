@@ -48,5 +48,15 @@ namespace TAMKShooter
 		{
 			Health.HealthChanged -= HealthChanged;
 		}
+
+        protected virtual void Respawn()
+        {
+
+        }
+
+        protected virtual void OnCollisionStay(Collision coll)
+        {
+            //Debug.Log(coll.collider.name);
+        }
 	}
 }

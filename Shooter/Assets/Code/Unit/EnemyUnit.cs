@@ -37,5 +37,16 @@ namespace TAMKShooter
 
 			base.Die ();
 		}
-	}
+
+        protected override void OnCollisionStay(Collision coll)
+        {
+            if (coll.collider.gameObject.layer == LayerMask.NameToLayer("Player"))
+            {
+                Die();
+            }
+
+            base.OnCollisionStay(coll);
+
+        }
+    }
 }

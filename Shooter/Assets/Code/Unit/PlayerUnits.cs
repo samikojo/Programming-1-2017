@@ -24,8 +24,6 @@ namespace TAMKShooter
 				{
 					// Initialize unit
 					PlayerUnit unit = Instantiate ( unitPrefab, transform );
-					unit.transform.position = Vector3.zero;
-					unit.transform.rotation = Quaternion.identity;
 					unit.Init ( playerData );
 
 					// Add player to dictionary

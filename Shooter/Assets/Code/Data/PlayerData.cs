@@ -1,5 +1,6 @@
 using System;
 using TAMKShooter.Systems;
+using UnityEngine;
 
 namespace TAMKShooter.Data
 {
@@ -19,5 +20,6 @@ namespace TAMKShooter.Data
 		public PlayerUnit.UnitType UnitType;
 		public InputManager.ControllerType Controller;
 		public int Lives;
+        public Vector3 SpawnPoint;
 	}
 }
