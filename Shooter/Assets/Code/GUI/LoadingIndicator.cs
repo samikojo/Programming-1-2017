@@ -17,7 +17,7 @@ namespace TAMKShooter.GUI
 		private Color _indicatorImageColor;
 		private List<Tweener> _tweeners = new List< Tweener >();
 
-		protected void Awake()
+		public void Init()
 		{
 			gameObject.SetActive ( false );
 			Global.Instance.GameManager.GameStateChanging +=

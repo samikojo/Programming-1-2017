@@ -19,6 +19,7 @@ namespace TAMKShooter
 
 		public UnitType Type { get { return _type; } }
 		public PlayerData Data { get; private set; }
+        private Transform _spawnPoint;
 
 		public override int ProjectileLayer
 		{
@@ -28,10 +29,20 @@ namespace TAMKShooter
 			}
 		}
 
-		public void Init( PlayerData playerData )
+		public void Init( PlayerData playerData, Transform spawnPoint )
 		{
 			InitRequiredComponents();
+            _spawnPoint = spawnPoint;
 			Data = playerData;
+            var Invulnerability = GetComponent<InvulnerabilityComponent>();
+            Invulnerability.Initialize();
+            var health = GetComponent<Health>();
+
+            if (health != null)
+            {
+                Invulnerability.Activate(health);
+            }
+
 		}
 
 		protected override void Die ()
