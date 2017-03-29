@@ -61,6 +61,9 @@ namespace TAMKShooter.Systems
 		{
 			DontDestroyOnLoad ( gameObject );
 
+			// Load previously set language.
+			Localization.LoadLanguage( SaveManager.Language );
+
 			if ( _prefabs == null )
 			{
 				_prefabs = GetComponentInChildren<Prefabs> ();

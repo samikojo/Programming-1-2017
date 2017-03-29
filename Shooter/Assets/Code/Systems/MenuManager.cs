@@ -25,35 +25,28 @@ namespace TAMKShooter.Systems
 			_playerSettingsWindow = 
 				GetComponentInChildren< PlayerSettings >( true );
 			_playerSettingsWindow.Init( this );
-			// TODO: Close player settings window
+			_playerSettingsWindow.Close();
 		}
 
-		public void StartGame()
+		public void StartGame( List< PlayerData > playerDatas )
 		{
+			_playerSettingsWindow.Close();
+
+			// Create a new GameData object and initialize if with playerDatas list.
 			Global.Instance.CurrentGameData = new GameData()
 			{
 				Level = 1,
-				PlayerDatas = new List< PlayerData >()
-				{
-					new PlayerData()
-					{
-						Controller = InputManager.ControllerType.KeyboardArrow,
-						Lives = 3,
-						Id = PlayerData.PlayerId.Player1,
-						UnitType = PlayerUnit.UnitType.Balanced
-					},
-					new PlayerData()
-					{
-						Controller = InputManager.ControllerType.KeyboardWasd,
-						Lives = 3,
-						Id = PlayerData.PlayerId.Player2,
-						UnitType = PlayerUnit.UnitType.Heavy
-					}
-				}
+				PlayerDatas = playerDatas
 			};
 
-			Global.Instance.GameManager.
-				PerformTransition ( GameStateTransitionType.MenuToInGame );
+			// Perform a transition to in game state.
+			Global.Instance.GameManager.PerformTransition(
+				GameStateTransitionType.MenuToInGame );
+		}
+
+		public void OpenStartGameWindow()
+		{
+			_playerSettingsWindow.Open();
 		}
 
 		public void OpenLoadWindow()

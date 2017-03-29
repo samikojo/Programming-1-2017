@@ -32,5 +32,6 @@ namespace TAMKShooter.Configs
 		public const string ShootGamepad2Name = "ShootGamepad2";
 
 		public const float DeadZone = 0.3f;
+		public const int Lives = 3;
 	}
 }
