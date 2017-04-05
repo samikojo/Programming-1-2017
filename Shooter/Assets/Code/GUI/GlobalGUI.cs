@@ -6,13 +6,23 @@ namespace TAMKShooter.GUI
 	{
 		private LoadingIndicator _loader;
 
+		private static GlobalGUI _current;
+
 		protected void Awake()
 		{
-			Debug.Log( "GlobalGUI Awake" );
-			DontDestroyOnLoad ( gameObject );
+			if ( _current == null )
+			{
+				_current = this;
+				Debug.Log( "GlobalGUI Awake" );
+				DontDestroyOnLoad( gameObject );
 
-			_loader = GetComponentInChildren< LoadingIndicator >( true );
-			_loader.Init();
+				_loader = GetComponentInChildren< LoadingIndicator >( true );
+				_loader.Init();
+			}
+			else
+			{
+				Destroy( gameObject );
+			}
 		}
 	}
 }

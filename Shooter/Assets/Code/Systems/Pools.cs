@@ -28,5 +28,28 @@ namespace TAMKShooter.Systems
 
 			return result;
 		}
+
+		public void Init()
+		{
+			var projectilePools = GetComponentsInChildren< ProjectilePool >( true );
+			foreach ( var projectilePool in projectilePools )
+			{
+				if( !_projectilePools.Contains( projectilePool ) )
+				{
+					_projectilePools.Add( projectilePool );
+				}
+			}
+
+			foreach ( var projectilePool in _projectilePools )
+			{
+				projectilePool.Init();
+			}
+
+			if ( _asteroidPool == null )
+			{
+				_asteroidPool = GetComponentInChildren< AsteroidPool >();
+			}
+			_asteroidPool.Init();
+		}
 	}
 }

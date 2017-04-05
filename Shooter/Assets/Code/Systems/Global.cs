@@ -72,6 +72,7 @@ namespace TAMKShooter.Systems
 			if(_pools == null)
 			{
 				_pools = GetComponentInChildren<Pools> ();
+				_pools.Init();
 			}
 
 			//SaveManager =

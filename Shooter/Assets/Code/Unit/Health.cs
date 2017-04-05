@@ -7,21 +7,34 @@ namespace TAMKShooter
 	{
 		[SerializeField]
 		private int _health;
+
+		private int _originalHealth;
 		
 		public int CurrentHealth
 		{
 			get { return _health; }
 			set
 			{
-				_health = Mathf.Clamp ( value, 0, value );
-				if(HealthChanged != null)
+				if ( !IsImmortal )
 				{
-					HealthChanged ( this, new HealthChangedEventArgs ( _health ) );
+					_health = Mathf.Clamp( value, 0, value );
+					if ( HealthChanged != null )
+					{
+						HealthChanged( this, new HealthChangedEventArgs( _health ) );
+					}
 				}
 			}
 		}
 
+		public bool IsImmortal { get; set; }
+
 		public event HealthChangedDelegate HealthChanged;
+
+		public void Init()
+		{
+			_originalHealth = CurrentHealth;
+			IsImmortal = false;
+		}
 
 		/// <summary>
 		/// Applies damage. Returns true if health was reduced to zero.
@@ -32,6 +45,11 @@ namespace TAMKShooter
 		{
 			CurrentHealth -= damage;
 			return CurrentHealth == 0;
+		}
+
+		public void Reset()
+		{
+			CurrentHealth = _originalHealth;
 		}
 	}
 }

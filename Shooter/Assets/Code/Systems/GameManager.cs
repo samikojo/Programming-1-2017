@@ -44,10 +44,10 @@ namespace TAMKShooter.Systems
 		#region Public methods
 		public void Init()
 		{
-			var startingState = new MenuState ();
-			AddState ( startingState );
+			CurrentState = new MenuState ();
+			AddState( CurrentState );
 			AddState ( new GameState () );
-			CurrentState = startingState;
+			AddState( new GameOverState() );
 		}
 
 		public bool AddState( GameStateBase state )

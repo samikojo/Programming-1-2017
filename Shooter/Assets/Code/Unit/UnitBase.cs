@@ -11,6 +11,13 @@ namespace TAMKShooter
 		public IHealth Health { get; protected set; }
 		public IMover Mover { get; protected set; }
 		public WeaponController Weapons { get; protected set; }
+		public Renderer Renderer { get; protected set; }
+
+		public Vector3 Position
+		{
+			get { return transform.position; }
+			set { transform.position = value; }
+		}
 		#endregion
 
 		#region Public interface
@@ -32,7 +39,14 @@ namespace TAMKShooter
 			Health = gameObject.GetOrAddComponent<Health> ();
 			Mover = gameObject.GetOrAddComponent<Mover> ();
 			Weapons = GetComponentInChildren<WeaponController> ();
+			Renderer = GetComponentInChildren< Renderer >();
 
+			if ( Weapons != null )
+			{
+				Weapons.Init();
+			}
+
+			Health.Init();
 			Health.HealthChanged += HealthChanged;
 		}
 

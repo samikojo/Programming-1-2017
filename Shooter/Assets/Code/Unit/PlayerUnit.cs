@@ -1,7 +1,10 @@
 using System;
+using System.Collections;
 using TAMKShooter.Data;
 using UnityEngine;
 using TAMKShooter.Configs;
+using TAMKShooter.Level;
+using UnityEngine.Networking;
 
 namespace TAMKShooter
 {
@@ -15,7 +18,11 @@ namespace TAMKShooter
 			Heavy = 3
 		}
 
+		private PlayerUnits _playerUnits;
+		private PlayerSpawner _playerSpawner;
+
 		[SerializeField] private UnitType _type;
+		[SerializeField] private float _flashTime;
 
 		public UnitType Type { get { return _type; } }
 		public PlayerData Data { get; private set; }
@@ -28,10 +35,13 @@ namespace TAMKShooter
 			}
 		}
 
-		public void Init( PlayerData playerData )
+		public void Init( PlayerUnits playerUnits, PlayerData playerData )
 		{
-			InitRequiredComponents();
 			Data = playerData;
+			_playerUnits = playerUnits;
+			_playerSpawner = _playerUnits.GetSpawnerByPlayerId( Data.Id );
+			InitRequiredComponents();
+			_playerSpawner.Spawn();
 		}
 
 		protected override void Die ()
@@ -39,9 +49,20 @@ namespace TAMKShooter
 			// TODO: Handle dying properly!
 			// Instantiate explosion effect
 			// Play sound
-			// Decrease lives
-			// Respawn player
-			gameObject.SetActive ( false );
+
+			Data.Lives--;
+			Health.Reset();
+
+			_playerUnits.PlayerDied( this );
+
+			if ( Data.Lives > 0 )
+			{
+				_playerSpawner.Spawn();
+			}
+			else
+			{
+				gameObject.SetActive( false );
+			}
 
 			base.Die ();
 		}
@@ -53,6 +74,30 @@ namespace TAMKShooter
 			{
 				Weapons.Shoot (ProjectileLayer);
 			}
+		}
+
+		public void Respawn(Vector3 position)
+		{
+			if ( Data.Lives > 0 )
+			{
+				Position = position;
+				StartCoroutine( Spawn() );
+			}
+		}
+
+		private IEnumerator Spawn()
+		{
+			Health.IsImmortal = true;
+			float respawnTime = 0;
+			while ( respawnTime < Config.RespawnTime )
+			{
+				respawnTime += _flashTime;
+				Renderer.enabled = !Renderer.enabled;
+				yield return new WaitForSeconds( _flashTime );
+			}
+
+			Renderer.enabled = true;
+			Health.IsImmortal = false;
 		}
 	}
 }

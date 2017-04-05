@@ -22,6 +22,8 @@ namespace TAMKShooter
 	public interface IHealth
 	{
 		int CurrentHealth { get; set; }
+		bool IsImmortal { get; set; }
+
 		/// <summary>
 		/// Reduces health when called.
 		/// </summary>
@@ -30,8 +32,20 @@ namespace TAMKShooter
 		bool TakeDamage( int damage );
 
 		/// <summary>
+		/// Resets the component to its original values.
+		/// </summary>
+		void Reset();
+
+		/// <summary>
+		/// Initializes the component which implements IHealth interface.
+		/// </summary>
+		void Init();
+
+		/// <summary>
 		/// This event is fired every time the health changes.
 		/// </summary>
 		event HealthChangedDelegate HealthChanged;
+
+
 	}
 }

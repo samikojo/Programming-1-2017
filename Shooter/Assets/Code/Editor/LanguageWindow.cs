@@ -37,6 +37,7 @@ public class LanguageWindow : EditorWindow
 		EditorGUILayout.BeginVertical();
 
 		Dictionary<string, string> newValues = new Dictionary< string, string >();
+		List<string> deletedKeys = new List< string >();
 		foreach ( var localization in _localizations )
 		{
 			EditorGUILayout.BeginHorizontal();
@@ -46,10 +47,22 @@ public class LanguageWindow : EditorWindow
 
 			newValues.Add( key, value );
 
+			if ( GUILayout.Button( "X" ) )
+			{
+				deletedKeys.Add(localization.Key);
+			}
+
 			EditorGUILayout.EndHorizontal();
 		}
 
 		_localizations = newValues;
+		foreach ( var deletedKey in deletedKeys )
+		{
+			if ( _localizations.ContainsKey( deletedKey ) )
+			{
+				_localizations.Remove( deletedKey );
+			}
+		}
 
 		if ( GUILayout.Button( "Add value" ) )
 		{

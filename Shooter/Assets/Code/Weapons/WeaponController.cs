@@ -12,13 +12,14 @@ namespace TAMKShooter
 
 		// TODO: Add support for booster (increase shooting speed etc.)
 
-		#region Unity messages
-		protected void Awake()
+		public void Init()
 		{
-			_weapons = GetComponentsInChildren<Weapon> ();
+			_weapons = GetComponentsInChildren<Weapon>();
 			_shootingRate = 1 / _shootingSpeed;
 			_previouslyShot = _shootingRate;
 		}
+
+		#region Unity messages
 
 		protected void Update()
 		{

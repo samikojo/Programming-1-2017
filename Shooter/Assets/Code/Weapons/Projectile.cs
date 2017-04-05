@@ -33,24 +33,6 @@ namespace TAMKShooter
 			Rigidbody = GetComponent<Rigidbody> ();
 		}
 
-		protected void OnCollisionEnter(Collision collision)
-		{
-			// Collision, Projectile hit something
-
-			IHealth damageReceiver =
-				collision.gameObject.GetComponentInChildren<IHealth> ();
-			if(damageReceiver != null)
-			{
-				// Colliding object can take damage
-				damageReceiver.TakeDamage ( _damage );
-
-				// TODO: Instantiate effect
-				// TODO: Add sound effect
-
-				_shooter.ProjectileHit ( this );
-			}
-		}
-
 		// This is used to clean projectiles up after they
 		// have exitted camera's viewport.
 		protected void OnTriggerEnter(Collider other)
@@ -58,6 +40,22 @@ namespace TAMKShooter
 			if(other.gameObject.layer == LayerMask.NameToLayer("Destroyer"))
 			{
 				_shooter.ProjectileHit ( this );
+				return;
+			}
+
+			// Collision, Projectile hit something
+
+			IHealth damageReceiver =
+				other.gameObject.GetComponentInChildren<IHealth>();
+			if (damageReceiver != null)
+			{
+				// Colliding object can take damage
+				damageReceiver.TakeDamage(_damage);
+
+				// TODO: Instantiate effect
+				// TODO: Add sound effect
+
+				_shooter.ProjectileHit(this);
 			}
 		}
 

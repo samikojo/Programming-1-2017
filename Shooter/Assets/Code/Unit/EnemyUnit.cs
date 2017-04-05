@@ -7,6 +7,8 @@ namespace TAMKShooter
 {
 	public class EnemyUnit : UnitBase
 	{
+		[SerializeField] private int _collisionDamage = 100;
+
 		private IPathUser _pathUser;
 
 		public EnemyUnits EnemyUnits { get; private set; }
@@ -36,6 +38,16 @@ namespace TAMKShooter
 			EnemyUnits.EnemyDied ( this );
 
 			base.Die ();
+		}
+
+		protected void OnTriggerEnter( Collider other )
+		{
+			PlayerUnit playerUnit = other.gameObject.GetComponent< PlayerUnit >();
+			if ( playerUnit != null )
+			{
+				playerUnit.TakeDamage( _collisionDamage );
+				Die();
+			}
 		}
 	}
 }
