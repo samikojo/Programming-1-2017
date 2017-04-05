@@ -14,6 +14,8 @@ namespace TAMKShooter.Systems
 		private ConditionBase[] _conditions;
 		private EnemySpawner[] _enemySpawners;
 
+        public List<Vector3> SpawnPoints = new List<Vector3>();
+
 		// Add reference to InputManager here.
 		public PlayerUnits PlayerUnits { get; private set; }
 		public EnemyUnits EnemyUnits { get; private set; }
@@ -41,29 +43,52 @@ namespace TAMKShooter.Systems
 				enemySpawner.Init( EnemyUnits );
 			}
 
+            while(SpawnPoints.Count < 4)
+            {
+                SpawnPoints.Add(Vector3.zero);
+            }
+
 #if UNITY_EDITOR
 			if ( Global.Instance.CurrentGameData == null )
 			{
-				Global.Instance.CurrentGameData = new GameData()
-				{
-					Level = 1,
-					PlayerDatas = new List< PlayerData >()
-					{
-						new PlayerData()
-						{
-							Controller = InputManager.ControllerType.KeyboardArrow,
-							Id = PlayerData.PlayerId.Player1,
-							Lives = 3,
-							UnitType = PlayerUnit.UnitType.Balanced
+                Global.Instance.CurrentGameData = new GameData()
+                {
+                    Level = 1,
+                    PlayerDatas = new List<PlayerData>()
+                    {
+                        new PlayerData()
+                        {
+                            Controller = InputManager.ControllerType.KeyboardArrow,
+                            Id = PlayerData.PlayerId.Player1,
+                            Lives = 3,
+                            UnitType = PlayerUnit.UnitType.Balanced,
+                            SpawnPoint = SpawnPoints[0]
 						},
-						new PlayerData()
-						{
-							Controller = InputManager.ControllerType.KeyboardWasd,
-							Id = PlayerData.PlayerId.Player2,
-							Lives = 3,
-							UnitType = PlayerUnit.UnitType.Heavy
-						}
-					}
+                        new PlayerData()
+                        {
+                            Controller = InputManager.ControllerType.KeyboardWasd,
+                            Id = PlayerData.PlayerId.Player2,
+                            Lives = 3,
+                            UnitType = PlayerUnit.UnitType.Heavy,
+                            SpawnPoint = SpawnPoints[1]
+                        },
+                        new PlayerData()
+                        {
+                            Controller = InputManager.ControllerType.Gamepad1,
+                            Id = PlayerData.PlayerId.Player3,
+                            Lives = 3,
+                            UnitType = PlayerUnit.UnitType.Fast,
+                            SpawnPoint = SpawnPoints[2]
+                        },
+                        new PlayerData()
+                        {
+                            Controller = InputManager.ControllerType.Gamepad2,
+                            Id = PlayerData.PlayerId.Player4,
+                            Lives = 3,
+                            UnitType = PlayerUnit.UnitType.Fast,
+                            SpawnPoint = SpawnPoints[3]
+                        }
+                    }
 				};
 			}
 #endif
