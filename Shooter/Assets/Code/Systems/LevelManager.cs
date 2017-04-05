@@ -62,8 +62,22 @@ namespace TAMKShooter.Systems
 							Id = PlayerData.PlayerId.Player2,
 							Lives = 3,
 							UnitType = PlayerUnit.UnitType.Heavy
-						}
-					}
+						},
+                        new PlayerData()
+                        {
+                            Controller = InputManager.ControllerType.Gamepad1,
+                            Id = PlayerData.PlayerId.Player3,
+                            Lives = 3,
+                            UnitType = PlayerUnit.UnitType.Heavy
+                        },
+                        new PlayerData()
+                        {
+                            Controller = InputManager.ControllerType.Gamepad2,
+                            Id = PlayerData.PlayerId.Player4,
+                            Lives = 3,
+                            UnitType = PlayerUnit.UnitType.Heavy
+                        }
+                    }
 				};
 			}
 #endif

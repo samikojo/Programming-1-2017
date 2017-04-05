@@ -7,7 +7,8 @@ namespace TAMKShooter
 	{
 		[SerializeField]
 		private int _health;
-		
+        public bool CanTakeDamage = true;
+
 		public int CurrentHealth
 		{
 			get { return _health; }
@@ -30,6 +31,7 @@ namespace TAMKShooter
 		/// <returns>True, if health reduced to zero. False otherwise</returns>
 		public bool TakeDamage ( int damage )
 		{
+            if (!CanTakeDamage) return false;
 			CurrentHealth -= damage;
 			return CurrentHealth == 0;
 		}
