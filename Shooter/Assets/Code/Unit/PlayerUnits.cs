@@ -3,6 +3,7 @@ using UnityEngine;
 using TAMKShooter.Data;
 using TAMKShooter.Systems;
 using System;
+using JetBrains.Annotations;
 
 namespace TAMKShooter
 {
@@ -10,6 +11,8 @@ namespace TAMKShooter
 	{
 		private Dictionary<PlayerData.PlayerId, PlayerUnit> _players =
 			new Dictionary<PlayerData.PlayerId, PlayerUnit> ();
+
+	    public List<PlayerSpawn> PlayerSpawns;
 
 		public void Init(params PlayerData[] players)
 		{
@@ -27,6 +30,17 @@ namespace TAMKShooter
 					unit.transform.position = Vector3.zero;
 					unit.transform.rotation = Quaternion.identity;
 					unit.Init ( playerData );
+
+				    foreach (var spawn in PlayerSpawns)
+				    {
+				        if (spawn.Player == null)
+				        {
+				            unit.transform.position = spawn.transform.position;
+				            spawn.Player = unit;
+				            unit.SpawnPoint = unit.transform.position;
+				            break;
+				        }
+				    }
 
 					// Add player to dictionary
 					_players.Add ( playerData.Id, unit );
