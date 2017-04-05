@@ -44,25 +44,36 @@ namespace TAMKShooter.Systems
 #if UNITY_EDITOR
 			if ( Global.Instance.CurrentGameData == null )
 			{
-				Global.Instance.CurrentGameData = new GameData()
-				{
-					Level = 1,
-					PlayerDatas = new List< PlayerData >()
-					{
-						new PlayerData()
-						{
-							Controller = InputManager.ControllerType.KeyboardArrow,
-							Id = PlayerData.PlayerId.Player1,
-							Lives = 3,
-							UnitType = PlayerUnit.UnitType.Balanced
-						},
-						new PlayerData()
-						{
-							Controller = InputManager.ControllerType.KeyboardWasd,
-							Id = PlayerData.PlayerId.Player2,
-							Lives = 3,
-							UnitType = PlayerUnit.UnitType.Heavy
-						}
+                Global.Instance.CurrentGameData = new GameData() {
+                    Level = 1,
+                    PlayerDatas = new List<PlayerData>()
+                    {
+                        new PlayerData()
+                        {
+                            Controller = InputManager.ControllerType.KeyboardArrow,
+                            Id = PlayerData.PlayerId.Player1,
+                            Lives = 3,
+                            UnitType = PlayerUnit.UnitType.Balanced
+                        },
+                        new PlayerData()
+                        {
+                            Controller = InputManager.ControllerType.KeyboardWasd,
+                            Id = PlayerData.PlayerId.Player2,
+                            Lives = 3,
+                            UnitType = PlayerUnit.UnitType.Heavy
+                        },
+                        new PlayerData() {
+                            Controller = InputManager.ControllerType.Gamepad1,
+                            Id = PlayerData.PlayerId.Player3,
+                            Lives = 3,
+                            UnitType = PlayerUnit.UnitType.Fast
+                        },
+                        new PlayerData() {
+                            Controller = InputManager.ControllerType.Gamepad2,
+                            Id = PlayerData.PlayerId.Player4,
+                            Lives = 3,
+                            UnitType = PlayerUnit.UnitType.Heavy
+                        }
 					}
 				};
 			}

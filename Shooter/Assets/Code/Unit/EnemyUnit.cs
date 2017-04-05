@@ -37,5 +37,11 @@ namespace TAMKShooter
 
 			base.Die ();
 		}
+
+        void OnCollisionEnter(Collision col) {
+            if (col.collider.gameObject.layer == LayerMask.NameToLayer("Player")) {
+                Die();
+            }
+        }
 	}
 }

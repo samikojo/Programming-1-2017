@@ -11,7 +11,12 @@ namespace TAMKShooter
 		private Dictionary<PlayerData.PlayerId, PlayerUnit> _players =
 			new Dictionary<PlayerData.PlayerId, PlayerUnit> ();
 
-		public void Init(params PlayerData[] players)
+        public GameObject spawnPoint1;
+        public GameObject spawnPoint2;
+        public GameObject spawnPoint3;
+        public GameObject spawnPoint4;
+
+        public void Init(params PlayerData[] players)
 		{
 			foreach (PlayerData playerData in players)
 			{
@@ -24,12 +29,25 @@ namespace TAMKShooter
 				{
 					// Initialize unit
 					PlayerUnit unit = Instantiate ( unitPrefab, transform );
-					unit.transform.position = Vector3.zero;
+                    switch(playerData.Id) {
+                        case PlayerData.PlayerId.Player1:
+                            unit.transform.position = spawnPoint1.transform.position;
+                            break;
+                        case PlayerData.PlayerId.Player2:
+                            unit.transform.position = spawnPoint2.transform.position;
+                            break;
+                        case PlayerData.PlayerId.Player3:
+                            unit.transform.position = spawnPoint3.transform.position;
+                            break;
+                        case PlayerData.PlayerId.Player4:
+                            unit.transform.position = spawnPoint4.transform.position;
+                            break;
+                    }
 					unit.transform.rotation = Quaternion.identity;
 					unit.Init ( playerData );
 
-					// Add player to dictionary
-					_players.Add ( playerData.Id, unit );
+                    // Add player to dictionary
+                    _players.Add ( playerData.Id, unit );
 				}
 				else
 				{
